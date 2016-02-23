@@ -2,3 +2,26 @@ int
 numeric
 double
 character
+----------------------
+as.int ()
+
+dat$f1 = as.numeric(dat$f1);
+
+f1 - column
+"1"
+"2"
+i
+...
+
+-------------------------------------
+NA
+
+check type 
+is.int();
+is.na();
+
+hist(dat$1, main = "", ylab="", xlab="", col="", xlim=c(...,...));
+
+generator
+runif(n, min, max);
+n - amount of data
