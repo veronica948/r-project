@@ -12,7 +12,7 @@ mean(arr)
 sd(arr)
 var(arr)
 median(seq(1,2,0.25))
-n = 2900:3100
+n = 3100:3500
 for(n1 in n) {
   s1 = runif(n1, 0, 1)
   avg = mean(s1)
