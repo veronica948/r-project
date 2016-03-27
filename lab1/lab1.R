@@ -113,3 +113,5 @@ minMedv = subset(Boston, Boston$medv == min(Boston$medv))
 View(minMedv)
 print(mean(Boston$medv) - min(Boston$medv))
 
+
+
