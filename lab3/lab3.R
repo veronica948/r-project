@@ -1,5 +1,5 @@
 #Ex 1
-set.seed(1597)
+set.seed(13)
 n = 100
 x = rnorm(n, 0, 1)
 eps = rnorm(n, 0, 0.25)
@@ -12,9 +12,8 @@ summary(l1)
 l1$coefficients  #-1.0177073   0.4636082 
 
 plot(y~x)
-points(y~x)
 abline(l1, lwd = 1, col = "blue")
-legend(x = 2, y = -1.5,"l1", text.col = "blue")
+legend(x = 1, y = -1.5,"l1", text.col = "blue")
 confint(l1)
 #2.5 %     97.5 %
 #  (Intercept) -1.0691240 -0.9662907
@@ -31,7 +30,6 @@ summary(l1)
 l1$coefficients  # -1.0020461   0.4979084
 
 plot(y~x)
-points(y~x)
 abline(l1, lwd = 1, col = "blue")
 legend(x = 0, y = -1.5,"l1", text.col = "blue")
 confint(l1)
@@ -57,8 +55,6 @@ library(MASS)
 boston = Boston
 ?Boston
 
-eps2 = rnorm(length(boston$crim), 0, 0.25)
-
 a_coeffs = vector(length = 13)
 
 #zn
@@ -69,7 +65,7 @@ a_coeffs[1] = l1$coefficients[2]
 plot(boston$crim~boston$zn)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(zn,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(zn,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -82,7 +78,7 @@ a_coeffs[2] = l1$coefficients[2]
 plot(boston$crim~boston$indus)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(indus,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(indus,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -105,7 +101,7 @@ a_coeffs[4] = l1$coefficients[2]
 plot(boston$crim~boston$nox)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(nox,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(nox,3), data = boston)
 l1$coefficients
 
 #rm 
@@ -116,7 +112,7 @@ a_coeffs[5] = l1$coefficients[2]
 plot(boston$crim~boston$rm)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(rm,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(rm,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -128,7 +124,7 @@ a_coeffs[6] = l1$coefficients[2]
 plot(boston$crim~boston$age)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(age,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(age,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -140,7 +136,7 @@ a_coeffs[7] = l1$coefficients[2]
 plot(boston$crim~boston$dis)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(dis,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(dis,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -153,7 +149,7 @@ a_coeffs[8] = l1$coefficients[2]
 plot(boston$crim~boston$rad)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(rad,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(rad,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -165,7 +161,7 @@ a_coeffs[9] = l1$coefficients[2]
 plot(boston$crim~boston$tax)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(tax,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(tax,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -178,7 +174,7 @@ a_coeffs[10] = l1$coefficients[2]
 plot(boston$crim~boston$ptratio)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(ptratio,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(ptratio,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -191,7 +187,7 @@ a_coeffs[11] = l1$coefficients[2]
 plot(boston$crim~boston$black)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(black,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(black,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -203,7 +199,7 @@ a_coeffs[12] = l1$coefficients[2]
 plot(boston$crim~boston$lstat)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(lstat,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(lstat,3), data = boston)
 l1$coefficients
 summary(l1)
 
@@ -216,15 +212,14 @@ a_coeffs[13] = l1$coefficients[2]
 plot(boston$crim~boston$medv)
 abline(l1, lwd = 1, col = "blue")
 
-l1 = lm(crim ~ poly(medv,3) + eps2, data = boston)
+l1 = lm(crim ~ poly(medv,3), data = boston)
 l1$coefficients
 summary(l1)
 
-pairs(Boston)
 
 l1 = lm(crim ~ ., data = boston)
 summary(l1)
 b_coeffs = l1$coefficients[2:14]
 coeffs = data.frame(x = a_coeffs, y = b_coeffs)
 coeffs
-plot(coeffs, xlim = c(-10,30), ylim = c(-10,30))
+plot(coeffs, xlim = c(-5,5), ylim = c(-5,5))

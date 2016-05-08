@@ -13,7 +13,6 @@ probs = predict(l1, type="response")
 probs[1:5]
 contrasts(Weekly$Direction)
 pred = ifelse(probs > 0.5, "Up", "Down")
-pred
 table(pred, Weekly$Direction)
 mean(pred == Weekly$Direction)
 
@@ -28,7 +27,7 @@ mean(pred == Direction.2009_10)
 
 #e Lag2+Today
 cond = Weekly$Year <= 2008
-l1 = glm(Direction ~ Lag2+Today, data = Weekly, family = binomial, subset = cond)
+l1 = glm(Direction ~ Lag2+ Lag4, data = Weekly, family = binomial, subset = cond)
 probs = predict(l1, newdata = Weekly[!cond,], type="response") 
 pred = ifelse(probs > 0.5, "Up", "Down")
 Direction.2009_10 = Weekly$Direction[!cond]

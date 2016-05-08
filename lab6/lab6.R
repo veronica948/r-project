@@ -7,26 +7,22 @@ l1 = lda(Direction ~ Lag2, data = Weekly, subset = trainCond)
 l1
 
 pred = predict(l1, Weekly[!trainCond, ])
-lda.class = pred$class
+class = pred$class
 testDirection = Weekly$Direction[!trainCond]
-table(lda.class, testDirection)
-mean(lda.class == testDirection)
-
+table(class, testDirection)
+mean(class == testDirection)
 
 trainCond = (Weekly$Year <= 2008)
 l1 = qda(Direction ~ Lag2, data = Weekly, subset = trainCond)
 l1
 pred = predict(l1, Weekly[!trainCond, ])
-qda.class = pred$class
+qdaClass = pred$class
 testDirection = Weekly$Direction[!trainCond]
-table(qda.class, testDirection)
-mean(qda.class == testDirection)
+table(qdaClass, testDirection)
+mean(qdaClass == testDirection)
 #glm 0.625
 #lda 0.625
-#qda 0.625
-
-
-#Ex2
+#qda 0.5865385
 
 #Ex2.
 
@@ -37,24 +33,23 @@ mpg01 = ifelse(auto$mpg > med, 1, 0)
 mpg01
 auto = data.frame(auto, mpg01)
 pairs(auto)
-plot(mpg01~auto$displacement)
-plot(mpg01~auto$year)
 #mpg, displacement, horsepower, weight, acceleration
 cond = auto$year <= 78
 l1 = lda(mpg01 ~ displacement + horsepower + weight + acceleration,
          data = auto, family = binomial, subset = cond)
 l1
 pred = predict(l1, auto[!cond, ])
-lda.class = pred$class
+ldaClass = pred$class
+ldaClass
 test = mpg01[!cond]
-table(lda.class, test)
-mean(lda.class == test)
+table(ldaClass, test)
+mean(ldaClass == test) #0.877193
 
 q1 = qda(mpg01 ~ displacement + horsepower + weight + acceleration,
          data = auto, family = binomial, subset = cond)
 q1
 pred = predict(q1, auto[!cond, ])
-qda.class = pred$class
+qdaClass = pred$class
 test = mpg01[!cond]
-table(qda.class, test)
-mean(qda.class == test)
+table(qdaClass, test)
+mean(qdaClass == test) #0.8421053
