@@ -25,7 +25,7 @@ Direction.2009_10 = Weekly$Direction[!cond]
 table(pred, Direction.2009_10)
 mean(pred == Direction.2009_10)
 
-#e Lag2+Today
+#e Lag2+Lag4
 cond = Weekly$Year <= 2008
 l1 = glm(Direction ~ Lag2+ Lag4, data = Weekly, family = binomial, subset = cond)
 probs = predict(l1, newdata = Weekly[!cond,], type="response") 

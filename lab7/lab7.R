@@ -11,54 +11,45 @@ x[21:40, 2] = x[21:40, 2]-5
 x[21:40, 3] = x[21:40, 3]-2
 x[21:40, 4] = x[21:40, 4]-3
 
-View(x)
 library(mclust)
-fmm = Mclust(x)
+fmm<-Mclust(x)
 fmm
-fmm$classification
 table(fmm$classification)
+plot(x, col = (fmm$classification + 1), main = "pc", xlab = "", ylab = "", pch = 20, cex = 2)
 
 #b
-pr.out = prcomp(x, scale = TRUE)
-pr.out$center #ñðåäíåå
-pr.out$scale #äèñïåðñèÿ
-pr.out$rotation #ìàòðèöà, êîò. ñîñò. èç âåêòîðîâ íàãðóçîê
-biplot(pr.out)
-plot(x, col = (fmm$classification + 1), main = "pc", xlab = "", ylab = "", pch = 20, cex = 2)
+pr = princomp(x)
+summary(pr)
+pr$loadings
+pr$scores
+plot(pr$scores)
 
 #c
 set.seed(3)
-km.out = kmeans(x, 3, nstart = 20)
-km.out$cluster
-plot(x, col = (km.out$cluster + 1), main = "K-Means K=3", xlab = "", ylab = "", pch = 20, cex = 2)
-km.out
-km.out$cluster
-km.out$tot.withinss
-table(fmm$classification, km.out$cluster)
+km1 = kmeans(x, 3)
+km1$cluster
+plot(x, col = (km1$cluster + 1), main = "K-Means K=3", xlab = "", ylab = "", pch = 20, cex = 2)
+table(fmm$classification, km1$cluster)
 
 #d
 set.seed(4)
-km.out = kmeans(x, 2, nstart = 20)
-km.out
-plot(x, col = (km.out$cluster + 1), main = "K-Means K=2", xlab = "", ylab = "", pch = 20, cex = 2)
-table(fmm$classification, km.out$cluster)
+km2 = kmeans(x, 2)
+plot(x, col = (km2$cluster + 1), main = "K-Means K=2", xlab = "", ylab = "", pch = 20, cex = 2)
+table(fmm$classification, km2$cluster)
 #e
 set.seed(5)
-km.out = kmeans(x, 4, nstart = 20)
-km.out
-plot(x, col = (km.out$cluster + 1), main = "K-Means Clustering Results with K=4", xlab = "", ylab = "", pch = 20, cex = 2)
-table(fmm$classification, km.out$cluster)
+km3 = kmeans(x, 4, nstart = 20)
+plot(x, col = (km3$cluster + 1), main = "K-Means K=4", xlab = "", ylab = "", pch = 20, cex = 2)
+table(fmm$classification, km3$cluster)
 #f
 set.seed(6)
-km.out = kmeans(pr.out$x, 3, nstart = 20)
-km.out
-plot(x, col = (km.out$cluster + 1), main = "K-Means, K=3", xlab = "", ylab = "", pch = 20, cex = 2)
-table(fmm$classification, km.out$cluster)
+km4 = kmeans(pr$scores, 3)
+plot(pr$scores, col = (km4$cluster + 1), main = "K-Means, K=3", xlab = "", ylab = "", pch = 20, cex = 2)
+table(fmm$classification, km4$cluster)
 #g
 set.seed(7)
 t=scale(x, center = TRUE)
 t
 sd(t[,1])
-km.out <- kmeans(t, 3, nstart = 20)
-km.out
-plot(x, col = (km.out$cluster + 1), main = "K-Means, K=3", xlab = "", ylab = "", pch = 20, cex = 2)
+km5 =  kmeans(t, 3)
+plot(x, col = (km5$cluster + 1), main = "K-Means, K=3", xlab = "", ylab = "", pch = 20, cex = 2)

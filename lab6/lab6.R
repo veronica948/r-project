@@ -8,6 +8,7 @@ l1
 
 pred = predict(l1, Weekly[!trainCond, ])
 class = pred$class
+class
 testDirection = Weekly$Direction[!trainCond]
 table(class, testDirection)
 mean(class == testDirection)
