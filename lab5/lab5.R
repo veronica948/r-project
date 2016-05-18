@@ -43,16 +43,33 @@ mpg01 = ifelse(auto$mpg > med, 1, 0)
 mpg01
 auto = data.frame(auto, mpg01)
 pairs(auto)
-plot(mpg01~auto$displacement)
-plot(mpg01~auto$year)
-#mpg, displacement, horsepower, weight, acceleration
-cond = auto$year <= 78
+
+#200
+lrnSet = sample(nrow(auto),200) 
 l1 = glm(mpg01 ~ displacement + horsepower + weight + acceleration,
-          data = auto, family = binomial, subset = cond)
+          data = auto, family = binomial, subset = lrnSet)
 summary(l1)
-probs = predict(l1, newdata = auto[!cond,],type = "response")
-probs
+probs = predict(l1, newdata = auto[-lrnSet,],type = "response")
 pred = ifelse(probs > 0.5, 1, 0)
-pred
-mean(pred == mpg01[!cond])
-table(pred, mpg01[!cond])
+#pred
+mean(pred == mpg01[-lrnSet])
+k = table(pred, mpg01[-lrnSet])
+k
+k[1,1]/sum(k[,1])
+k[1,1]/sum(k[,2])
+
+#100
+lrnSet = sample(nrow(auto),100) 
+l1 = glm(mpg01 ~ displacement + horsepower + weight + acceleration,
+         data = auto, family = binomial, subset = lrnSet)
+summary(l1)
+probs = predict(l1, newdata = auto[-lrnSet,],type = "response")
+pred = ifelse(probs > 0.5, 1, 0)
+#pred
+mean(pred == mpg01[-lrnSet])
+k = table(pred, mpg01[-lrnSet])
+k
+k[1,1]/sum(k[,1])
+k[1,1]/sum(k[,2])
+
+

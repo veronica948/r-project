@@ -35,22 +35,30 @@ mpg01
 auto = data.frame(auto, mpg01)
 pairs(auto)
 #mpg, displacement, horsepower, weight, acceleration
-cond = auto$year <= 78
+lrnSet = sample(nrow(auto),200) 
 l1 = lda(mpg01 ~ displacement + horsepower + weight + acceleration,
-         data = auto, family = binomial, subset = cond)
+         data = auto, family = binomial, subset = lrnSet)
 l1
-pred = predict(l1, auto[!cond, ])
+pred = predict(l1, auto[-lrnSet, ])
 ldaClass = pred$class
 ldaClass
-test = mpg01[!cond]
-table(ldaClass, test)
+test = mpg01[-lrnSet]
+k = table(ldaClass, test)
+k
 mean(ldaClass == test) #0.877193
+k
+k[1,1]/sum(k[,1])
+k[1,1]/sum(k[,2])
 
 q1 = qda(mpg01 ~ displacement + horsepower + weight + acceleration,
-         data = auto, family = binomial, subset = cond)
+         data = auto, family = binomial, subset = lrnSet)
 q1
-pred = predict(q1, auto[!cond, ])
+pred = predict(q1, auto[-lrnSet, ])
 qdaClass = pred$class
-test = mpg01[!cond]
-table(qdaClass, test)
+test = mpg01[-lrnSet]
+k=table(qdaClass, test)
 mean(qdaClass == test) #0.8421053
+
+k
+k[1,1]/sum(k[,1])
+k[1,1]/sum(k[,2])
