@@ -49,6 +49,11 @@ plot(pr$scores, col = (km4$cluster + 1), main = "K-Means, K=3", xlab = "", ylab 
 table(classification, km4$cluster)
 #g
 set.seed(7)
-t=scale(x, scale=TRUE)
+t=scale(x, scale=TRUE, center = FALSE)
+sd(t[,2])
+sd(t[,3])
+sd(t[,4])
+var(t[,1])
+mean(t[,2])
 km5 =  kmeans(t, 3)
 plot(x, col = (km5$cluster + 1), main = "K-Means, K=3", xlab = "", ylab = "", pch = 20, cex = 2)
